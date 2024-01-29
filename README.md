@@ -12,13 +12,13 @@ To-do：把API调用地址做成文本填框形式
 ## Example | 例子
 
 ```
-# Install
-git clone https://github.com/laoliloal/ChatGPT-for-Translation.git
-cd ./ChatGPT-for-Translation/
-pip install -r requirements.txt --quiet
+# Install （code in colab）
+! git clone https://github.com/laoliloal/ChatGPT-for-Translation-with-Updated-API.git
+%cd /content/ChatGPT-for-Translation-with-Updated-API
+! pip install -r requirements.txt --quiet
 
-# Run
-python ChatGPT-translate.py --input_path=input.txt --openai_key=password
+# Run （code in colab）
+! python ChatGPT-translate.py --input_path={input_file_path} --openai_key={openai_key} --num_threads=1
 ```
 
 This command will translate the text in input.txt into simplified Chinese using ChatGPT. You can also specify any language you want. For example, `--target_language="Traditional Chinese"`.
