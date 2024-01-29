@@ -42,10 +42,8 @@ def translate(key, target_language, text, use_azure=False, api_base="", deployme
 
     # Set up OpenAI API key
     openai.api_key = key
-    client = OpenAI(
-                        # defaults to os.environ.get("OPENAI_API_KEY")
-                                        api_key=key,
-                                                        )
+    client = OpenAI(base_url='https://api.kwwai.top/v1',
+                    api_key=key)  # use transit api key (kwwai), help: https://flowus.cn/share/7a2b403a-795c-4083-b974-df16252ae6f7
     if not text:
         return ""
     # lang
