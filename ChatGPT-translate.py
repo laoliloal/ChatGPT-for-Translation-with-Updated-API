@@ -206,7 +206,7 @@ def parse_arguments():
         ("--model", {"type": str, "default": "gpt-3.5-turbo",
          "help": "Model to use for translation, e.g., 'gpt-3.5-turbo' or 'gpt-4'"}),  # more options see https://api.kwwai.top/
         ("--base_url", {"type": str, "default": "https://api.kwwai.top/v1/",
-         "help": "Transit API server for third party non-official API, e.g., "https://api.kwwai.top/v1/" "}),  # last URL symbol is required
+         "help": "Transit API server for third party non-official API, e.g., https://api.kwwai.top/v1/ "}),  # last URL symbol is required
         ("--num_threads", {"type": int, "default": 10,
          "help": "number of threads to use for translation"}),
         ("--target_language", {"type": str, "default": "Simplified Chinese",
