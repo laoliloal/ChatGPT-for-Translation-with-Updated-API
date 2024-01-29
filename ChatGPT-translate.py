@@ -33,15 +33,15 @@ AZURE_API_VERSION = "2023-03-15-preview"
 
 
 @retry(wait=wait_random_exponential(min=1, max=60), stop=stop_after_attempt(6))
-def translate(key, target_language, text, use_azure=False, api_base="", deployment_name="", options=None):
+def translate(key, target_language, text, base_url="", use_azure=False, api_base="", deployment_name="", options=None):
     # Set up OpenAI API version
     if use_azure:
        openai.api_type = "azure"
        openai.api_version = AZURE_API_VERSION
        openai.api_base = api_base
 
-    # Set up OpenAI API key
-    openai.base_url = "https://api.kwwai.top/v1/"  # use transit api key (kwwai), help: https://flowus.cn/share/7a2b403a-795c-4083-b974-df16252ae6f7
+    # Set up 3rd party OpenAI API key
+    openai.base_url = base_url  # use transit api key (kwwai), help: https://flowus.cn/share/7a2b403a-795c-4083-b974-df16252ae6f7
     openai.api_key = key
 
     if not text:
@@ -88,8 +88,6 @@ def remove_empty_paragraphs(text):
 
 
 def translate_text_file(text_filepath_or_url, options):
-    openai.api_base = "https://api.kwwai.top/v1"
-    openai.api_key = options.openai_key or os.environ.get("OPENAI_API_KEY")
     OPENAI_API_KEY = options.openai_key or os.environ.get("OPENAI_API_KEY")
     
     paragraphs = read_and_preprocess_data(text_filepath_or_url, options)
@@ -106,9 +104,10 @@ def translate_text_file(text_filepath_or_url, options):
                 OPENAI_API_KEY,
                 options.target_language,
                 text,
+                options.base_url,
                 options.use_azure,
                 options.azure_endpoint,
-                options.azure_deployment_name,
+                options.azure_deployment_name, 
                 options=options
             )
             futures.append((idx, future))
@@ -205,7 +204,9 @@ def parse_arguments():
         ("--openai_key", {"type": str,
          "default": "", "help": "OpenAI API key"}),
         ("--model", {"type": str, "default": "gpt-3.5-turbo",
-         "help": "Model to use for translation, e.g., 'gpt-3.5-turbo' or 'gpt-4'"}),
+         "help": "Model to use for translation, e.g., 'gpt-3.5-turbo' or 'gpt-4'"}),  # more options see https://api.kwwai.top/
+        ("--base_url", {"type": str, "default": "https://api.kwwai.top/v1/",
+         "help": "Transit API server for third party non-official API, e.g., "https://api.kwwai.top/v1/" "}),  # last URL symbol is required
         ("--num_threads", {"type": int, "default": 10,
          "help": "number of threads to use for translation"}),
         ("--target_language", {"type": str, "default": "Simplified Chinese",
