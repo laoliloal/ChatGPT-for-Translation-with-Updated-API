@@ -68,7 +68,7 @@ def translate(key, target_language, text, use_azure=False, api_base="", deployme
         )
     else:
         completion = openai.chat.completions.create(
-            model=gpt-3.5-turbo,
+            model="gpt-3.5-turbo",
             messages=messages,
         )
 
