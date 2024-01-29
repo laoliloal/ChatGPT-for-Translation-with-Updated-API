@@ -41,11 +41,9 @@ def translate(key, target_language, text, use_azure=False, api_base="", deployme
        openai.api_base = api_base
 
     # Set up OpenAI API key
-    client = OpenAI(base_url='https://api.kwwai.top/v1',
-                    api_key=key)  # use transit api key (kwwai), help: https://flowus.cn/share/7a2b403a-795c-4083-b974-df16252ae6f7
-    openai.base_url = "https://api.kwwai.top/v1"
+    openai.base_url = "https://api.kwwai.top/v1/"  # use transit api key (kwwai), help: https://flowus.cn/share/7a2b403a-795c-4083-b974-df16252ae6f7
     openai.api_key = key
-    
+
     if not text:
         return ""
     # lang
@@ -68,12 +66,10 @@ def translate(key, target_language, text, use_azure=False, api_base="", deployme
         )
     else:
         completion = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model=options.model,
             messages=messages,
         )
-
     t_text = (completion.choices[0].message.content.encode("utf8").decode())
-
     return t_text
 
 
