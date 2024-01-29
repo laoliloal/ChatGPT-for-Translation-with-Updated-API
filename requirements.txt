@@ -1,3 +1,4 @@
+tensorflow-probability==0.23.0
 openai
 tqdm
 trafilatura
