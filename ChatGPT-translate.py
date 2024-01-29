@@ -90,8 +90,10 @@ def remove_empty_paragraphs(text):
 
 
 def translate_text_file(text_filepath_or_url, options):
+    openai.api_base = "https://api.kwwai.top/v1"
+    openai.api_key = options.openai_key or os.environ.get("OPENAI_API_KEY")
     OPENAI_API_KEY = options.openai_key or os.environ.get("OPENAI_API_KEY")
-
+    
     paragraphs = read_and_preprocess_data(text_filepath_or_url, options)
 
     # Create a list to hold your translated_paragraphs. We'll populate it as futures complete.
