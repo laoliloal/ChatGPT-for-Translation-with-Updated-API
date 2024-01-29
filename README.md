@@ -1,17 +1,16 @@
 # ChatGPT for Translation | ChatGPT用于翻译
 Use ChatGPT to complete document translations. This tool accepts a text file (`.pdf`, `.txt`, `.md`, `.html`, or `.rtf`) or a folder containing text files. It will generate both a direct translation and a bilingual text file. Special optimization has been done for parsing PDFs.
-
 使用ChatGPT完成文件翻译。该工具接受一个文本文件（`.pdf`, `.txt`, `.md`, `.html`或`.rtf`）或者一个包含文本的文件夹。它将生成一个直接翻译和一个双语文本文件。对于 PDF 解析做了优化。
-
-Use this on Google Colab (**recommended**). See [here](https://colab.research.google.com/drive/1_715zHeS3VaZaB9ISyo29Zp-KOTsyP8D#scrollTo=hU-8gsBXAyf0)
-
-Google Colab上使用这个工具(**推荐**)。见[这里](https://colab.research.google.com/drive/1_715zHeS3VaZaB9ISyo29Zp-KOTsyP8D#scrollTo=hU-8gsBXAyf0)
+对YuxuanXiu大佬工作的进一步修改：
+1. 修改requirement.txt，更好兼容Google colab
+2. 使用中转API（而非官方API），API调用地址："https://api.kwwai.top/v1"
+To-do：把API调用地址做成文本填框形式
 
 ## Example | 例子
 
 ```
 # Install
-git clone https://github.com/Raychanan/ChatGPT-for-Translation.git
+git clone https://github.com/laoliloal/ChatGPT-for-Translation.git
 cd ./ChatGPT-for-Translation/
 pip install -r requirements.txt --quiet
 
@@ -39,37 +38,11 @@ GPT-4:
 python ChatGPT-translate.py --input_path=input.txt --model=gpt-4 --openai_key=password
 ```
 
-## Virtual Environment Setup
-
-Note:
-
-Run: ```python --version``` to see if it is Python 3.6 or above. Run ```python3 --version``` to see if it is aliased under python3 instead. 
-
-If it is `python3` then use `python3` when creating the virtual environment.
-
-First create virtual environment if it doesn't exist:
-(Use python3 here if needed.)
-```
-python -m venv venv
-```
-
-Second activate it:
-```
-source venv/bin/activate
-```
-
-Third install requirements.txt:
-```
-pip install -r requirements.txt
-```
-
-If necessary sometimes dependencies may have changed and no longer works. You can instead run:
-```
-pip install stable_requirements.txt
 ```
 
 ## Prerequisites | 要求
-OpenAI API key (https://beta.openai.com/signup/) or Azure
+【自行去某宝买个某家API的key】
+【未测试】OpenAI API key (https://beta.openai.com/signup/) or Azure
 
 You need to link a payment method in the OpenAI API, otherwise you'll face extremely stringent API rate limits. 
 
