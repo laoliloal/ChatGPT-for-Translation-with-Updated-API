@@ -13,6 +13,8 @@ pattern3 = r' \(von[^()\n]+\d{4}\)' # 开头大写von，结尾四个数字
 pattern4 = r' \([A-Z][^()\n]+\d{4}b\)' # 首字母开头大写，结尾四个数字+b(如2010b)
 pattern5 = r' \(e.g., +[A-Z][^()\n]+\d{4}\)' # 开头是e.g.
 pattern6 = r"(?<=\w)\d+(?:,\d+)*(?=[,. ])" # 以1,2,3形式来写的参考文献（常见于Nature和PNAS）
+pattern7 = r"\[\d+\.(?:,\d+\.)*\]" # 以[10.,11.]形式来写的参考文献（常见于Trends系列）
+pattern8 = r"\(\d+(?:,\d+)*\)" # 以(10,11)形式来写的参考文献
 
 # loop over all files in folder "txt_not_cleaned"
 for filename in os.listdir("./txt_not_cleaned"):
@@ -26,8 +28,10 @@ for filename in os.listdir("./txt_not_cleaned"):
               matches4 = re.findall(pattern4, line)
               matches5 = re.findall(pattern5, line)
               matches6 = re.findall(pattern6, line)
+              matches7 = re.findall(pattern7, line)
+              matches8 = re.findall(pattern8, line)
 
-              for match in (matches1+matches2+matches3+matches4+matches5+matches6):
+              for match in (matches1+matches2+matches3+matches4+matches5+matches6+matches7+matches8):
                   print(match)
 
               processed_line = re.sub(pattern1, '', line) # delete
@@ -36,5 +40,7 @@ for filename in os.listdir("./txt_not_cleaned"):
               processed_line = re.sub(pattern4, '', processed_line) # delete
               processed_line = re.sub(pattern5, '', processed_line) # delete
               processed_line = re.sub(pattern6, '', processed_line) # delete
+              processed_line = re.sub(pattern7, '', processed_line) # delete
+              processed_line = re.sub(pattern8, '', processed_line) # delete
 
               output_file.write(processed_line)
