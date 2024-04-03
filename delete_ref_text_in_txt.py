@@ -11,10 +11,14 @@ pattern1 = r' \([A-Z][^()\n]+\d{4}\)' # Define the pattern to match, 首字母�
 pattern2 = r' \(for a review, see +[A-Z][^()\n]+\d{4}\)' # 开头是for a review
 pattern3 = r' \(von[^()\n]+\d{4}\)' # 开头大写von，结尾四个数字
 pattern4 = r' \([A-Z][^()\n]+\d{4}b\)' # 首字母开头大写，结尾四个数字+b(如2010b)
-pattern5 = r' \(e.g., +[A-Z][^()\n]+\d{4}\)' # 开头是e.g.
-pattern6 = r"(?<=\w)\d+(?:,\d+)*(?=[,. ])" # 以1,2,3形式来写的参考文献（常见于Nature和PNAS）
-pattern7 = r"\[\d+\.(?:,\d+\.)*\]" # 以[10.,11.]形式来写的参考文献（常见于Trends系列）
-pattern8 = r"\(\d+(?:,\d+)*\)" # 以(10,11)形式来写的参考文献
+pattern5 = r' \([A-Z][^()\n]+\d{4}b\)' # 首字母开头大写，结尾四个数字+a(如2010a)
+pattern6 = r' \(e.g., +[A-Z][^()\n]+\d{4}\)' # 开头是e.g.
+pattern7 = r"(?<=[A-Za-z])\d+(?:,\d+)*(?=[,. ])" # 以1,2,3形式来写的参考文献，前接一个字母（常见于Nature和PNAS）
+pattern8 = r"\[\d+\.(?:,\d+\.)*\]" # 以[10.,11.]形式来写的参考文献（常见于Trends系列）
+pattern9 = r"\(\d+(?:,\d+)*\)" # 以(10,11)形式来写的参考文献
+
+patterns = [pattern1, pattern2, pattern3, pattern4, pattern5, pattern6, pattern7, pattern8, pattern9]  # 放到列表中
+
 
 # loop over all files in folder "txt_not_cleaned"
 for filename in os.listdir("./txt_not_cleaned"):
@@ -22,25 +26,15 @@ for filename in os.listdir("./txt_not_cleaned"):
         # read the contents of the file in folder A
         with open(os.path.join("./txt_not_cleaned", filename), 'r', encoding='utf-8') as input_file, open(os.path.join("./txt_not_translated", filename),'w', encoding='utf-8') as output_file:
             for line in input_file.readlines():
-              matches1 = re.findall(pattern1, line)
-              matches2 = re.findall(pattern2, line)
-              matches3 = re.findall(pattern3, line)
-              matches4 = re.findall(pattern4, line)
-              matches5 = re.findall(pattern5, line)
-              matches6 = re.findall(pattern6, line)
-              matches7 = re.findall(pattern7, line)
-              matches8 = re.findall(pattern8, line)
+              line_processing=line
 
-              for match in (matches1+matches2+matches3+matches4+matches5+matches6+matches7+matches8):
-                  print(match)
-
-              processed_line = re.sub(pattern1, '', line) # delete
-              processed_line = re.sub(pattern2, '', processed_line) # delete
-              processed_line = re.sub(pattern3, '', processed_line) # delete
-              processed_line = re.sub(pattern4, '', processed_line) # delete
-              processed_line = re.sub(pattern5, '', processed_line) # delete
-              processed_line = re.sub(pattern6, '', processed_line) # delete
-              processed_line = re.sub(pattern7, '', processed_line) # delete
-              processed_line = re.sub(pattern8, '', processed_line) # delete
-
+              for pattern in patterns:                  
+                # 显示匹配结果
+                matches = re.findall(pattern, line_processing)
+                if matches:
+                  print(f"{matches}")
+                  # 删除匹配结果
+                  line_processing = re.sub(pattern, '', line_processing)
+                
+              processed_line = line_processing
               output_file.write(processed_line)
