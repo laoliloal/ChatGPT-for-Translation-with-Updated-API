@@ -16,8 +16,9 @@ pattern6 = r' \(e.g., +[A-Z][^()\n]+\d{4}\)' # 开头是e.g.
 pattern7 = r"(?<=[A-Za-z])\d+(?:,\d+)*(?=[,. ])" # 以1,2,3形式来写的参考文献，前接一个字母（常见于Nature和PNAS）
 pattern8 = r"\[\d+\.(?:,\d+\.)*\]" # 以[10.,11.]形式来写的参考文献（常见于Trends系列）
 pattern9 = r"\(\d+(?:,\d+)*\)" # 以(10,11)形式来写的参考文献
+pattern10 = r"\[\d+(?:,\d+)*\]" # 以[10,11]形式来写的参考文献
 
-patterns = [pattern1, pattern2, pattern3, pattern4, pattern5, pattern6, pattern7, pattern8, pattern9]  # 放到列表中
+patterns = [pattern1, pattern2, pattern3, pattern4, pattern5, pattern6, pattern7, pattern8, pattern9, pattern10]  # 放到列表中
 
 
 # loop over all files in folder "txt_not_cleaned"
