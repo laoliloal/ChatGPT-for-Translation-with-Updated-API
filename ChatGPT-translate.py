@@ -104,26 +104,25 @@ def translate_text_file(text_filepath_or_url, options):
                 translated_paragraphs[idx] = ""
             else:
                 future = executor.submit(
-                translate,
-                OPENAI_API_KEY,
-                options.target_language,
-                text,
-                options.base_url,
-                options.use_azure,
-                options.azure_endpoint,
-                options.azure_deployment_name, 
-                options=options
-            )
-            futures.append((idx, future))
-        # Iterate over the futures as they complete.
-        for future in tqdm(as_completed([future for idx, future in futures]), total=len(paragraphs), desc="Translating paragraphs", unit="paragraph"):
-            for idx, f in futures:
-                if f == future:
-                    try:
-                        translated_paragraphs[idx] = future.result().strip()
-                    except Exception as e:
-                        print(f"An error occurred during translation: {e}")
-                        translated_paragraphs[idx] = ""  # or however you want to handle errors
+                    translate,
+                    OPENAI_API_KEY,
+                    options.target_language,
+                    text,
+                    options.base_url,
+                    options.use_azure,
+                    options.azure_endpoint,
+                    options.azure_deployment_name, 
+                    options=options)
+                futures.append((idx, future))
+                # Iterate over the futures as they complete.
+                for future in tqdm(as_completed([future for idx, future in futures]), total=len(paragraphs), desc="Translating paragraphs", unit="paragraph"):
+                    for idx, f in futures:
+                        if f == future:
+                            try:
+                                translated_paragraphs[idx] = future.result().strip()
+                            except Exception as e:
+                                print(f"An error occurred during translation: {e}")
+                                translated_paragraphs[idx] = ""  # or however you want to handle errors
 
     translated_text = "\n".join(translated_paragraphs)
 
