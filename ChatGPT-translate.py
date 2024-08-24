@@ -90,6 +90,7 @@ def remove_empty_paragraphs(text):
 def translate_text_file(text_filepath_or_url, options):
     OPENAI_API_KEY = options.openai_key or os.environ.get("OPENAI_API_KEY")
     
+    specific_words = ["introduction", "method", "result", "results", "discussion", "abstract", "summary","main"]
     paragraphs = read_and_preprocess_data(text_filepath_or_url, options)
 
     # Create a list to hold your translated_paragraphs. We'll populate it as futures complete.
@@ -99,7 +100,10 @@ def translate_text_file(text_filepath_or_url, options):
     futures = []
     with ThreadPoolExecutor(max_workers=options.num_threads) as executor:
         for idx, text in enumerate(paragraphs):
-            future = executor.submit(
+            if any(word.lower() in text.lower() for word in specific_words):
+                translated_paragraphs[idx] = ""
+            else:
+                future = executor.submit(
                 translate,
                 OPENAI_API_KEY,
                 options.target_language,
@@ -120,7 +124,6 @@ def translate_text_file(text_filepath_or_url, options):
                     except Exception as e:
                         print(f"An error occurred during translation: {e}")
                         translated_paragraphs[idx] = ""  # or however you want to handle errors
-
 
     translated_text = "\n".join(translated_paragraphs)
 
