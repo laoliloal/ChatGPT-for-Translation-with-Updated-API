@@ -13,9 +13,9 @@ pattern3 = r' \(von[^()\n]+\d{4}\)' # 开头小写von，结尾四个数字
 pattern4 = r' \([A-Z][^()\n]+\d{4}b\)' # 首字母开头大写，结尾四个数字+b(如2010b)
 pattern5 = r' \([A-Z][^()\n]+\d{4}b\)' # 首字母开头大写，结尾四个数字+a(如2010a)
 pattern6 = r' \(e.g., +[A-Z][^()\n]+\d{4}\)' # 开头是e.g.
-pattern7 = r"(?<=[A-Za-z])\d+(?:,\d+)*(?=[,. ])" # 以1,2,3形式来写的参考文献，前接一个字母（常见于Nature和PNAS）
+pattern7 = r"(?<=[A-Za-z,.])\d+,\s*\d+(?:,\s*\d+)*(?=[,. ])" # 以1,2,3形式来写的参考文献，前接一个字母或标点（常见于Nature和PNAS）
 pattern8 = r"\[\d+\.?(?:, ?\d+\.?)*\]" # 以[10., 11.]形式来写的参考文献（常见于Trends系列）（也可匹配[10,11]形式）
-pattern9 = r"\(\d+(?:,\d+)*\)" # 以(10,11)形式来写的参考文献
+pattern9 = r"\(\d+,\s*\d+(?:,\s*\d+)*\)" # 以(10,11)或(10, 11)形式来写的参考文献
 
 patterns = [pattern1, pattern2, pattern3, pattern4, pattern5, pattern6, pattern7, pattern8, pattern9]  # 放到列表中
 
