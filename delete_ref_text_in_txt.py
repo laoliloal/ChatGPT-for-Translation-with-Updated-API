@@ -18,9 +18,10 @@ pattern6 = r"(?<=[A-Za-z,.])\s*\d+(?:\s*,\s*\d+)*(?=[,. ])" # 以1,2,3形式来�
 pattern7 = r"(?<=[A-Za-z])\d+(?=[,. ])"# 以gratitude84形式来写的参考文献，前接一个字母，后接标点或空格
 pattern8 = r"\[\d+\.?(?:, ?\d+\.?)*\]" # 以[10., 11.]形式来写的参考文献（常见于Trends系列）（也可匹配[10,11]形式）
 pattern9 = r"\[\d{1,3}\.?\]" # 以[10.]形式来写的参考文献（也可匹配[10]形式）
-pattern10 = r"\(\d+,\s*\d+(?:,\s*\d+)*\)" # 以(10,11)或(10, 11)形式来写的参考文献
+pattern10 = r"\[\d+(?:[–-,]\s*\d+)*\]"  # 以[4, 6–9]形式来写的参考文献（常见Plos）
+pattern11 = r"\(\d+,\s*\d+(?:,\s*\d+)*\)" # 以(10,11)或(10, 11)形式来写的参考文献
 
-patterns = [pattern1, pattern2, pattern3, pattern4, pattern5, pattern6, pattern7, pattern8, pattern9, pattern10]  # 放到列表中
+patterns = [pattern1, pattern2, pattern3, pattern4, pattern5, pattern6, pattern7, pattern8, pattern9, pattern10, pattern11]  # 放到列表中
 
 
 # loop over all files in folder "txt_not_cleaned"
