@@ -91,7 +91,7 @@ def translate_text_file(text_filepath_or_url, options):
     OPENAI_API_KEY = options.openai_key or os.environ.get("OPENAI_API_KEY")
     
     specific_words = ["introduction", "method", "result", "results", "discussion",
-     "abstract", "summary", "main", "highlights"]
+     "abstract", "summary", "main", "highlights", "highlight"]
     paragraphs = read_and_preprocess_data(text_filepath_or_url, options)
 
     # Create a list to hold your translated_paragraphs. We'll populate it as futures complete.
@@ -101,8 +101,15 @@ def translate_text_file(text_filepath_or_url, options):
     futures = []
     with ThreadPoolExecutor(max_workers=options.num_threads) as executor:
         for idx, text in enumerate(paragraphs):
-            if any(text.lower() == word.lower() for word in specific_words):
+
+            # delete “single word” paragraph
+            if any(text.lower() == word.lower() for word in specific_words): 
                 translated_paragraphs[idx] = ""
+
+            # delete “matlab code” paragraph    
+            elif "=" in text and text.endswith(";"):
+                translated_paragraphs[idx] = ""
+
             else:
                 future = executor.submit(
                     translate,
