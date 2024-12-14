@@ -14,3 +14,5 @@ beautifulsoup4
 tenacity
 cohere
 tiktoken
+anyio>=3.1.0,<4
+httpx==0.27.2
