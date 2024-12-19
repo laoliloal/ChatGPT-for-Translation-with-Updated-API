@@ -1,0 +1,16 @@
+tensorflow-probability==0.23.0
+openai
+tqdm
+trafilatura
+nltk
+python-docx
+langdetect
+grobid_tei_xml
+lxml
+spacy
+pandas
+textstat
+beautifulsoup4
+tenacity
+cohere
+tiktoken
