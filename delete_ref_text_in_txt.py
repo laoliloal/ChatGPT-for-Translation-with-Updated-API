@@ -20,8 +20,9 @@ pattern8 = r"\[\d+(?:[-–,]\s*\d+)*\]"  # 以[4, 6–9]形式来写的参考文
 pattern9 = r"(?<![tF])\(\d+,\s*\d+(?:,\s*\d+)*\)(?!\s*[<>=])" # 以(10,11)或(10, 11)形式来写的参考文献，排除统计F(...)/t(...) 后接运算符的情况
 pattern10 = r"(?<!t)(?<=[a-z,.])\d+(?:\s*,\s*\d+)+(?=[,.\s])(?!\s*[<>=])" # 以1,2,3形式来写的参考文献，前接一个小写字母或标点，后接标点或空格（常见于Nature和PNAS）,排除统计
 pattern11 = r"(?<=[a-z])(?<!t)\d+(?=[,.\s])(?!\s*[<>=])" # 以gratitude84形式来写的参考文献，前接一个小写字母，后接标点或空格，排除统计
+pattern12 = r"(?<![tF])\(\d+(?:[-–,]\s*\d+)*\)(?!\s*[<>=])"   # 带杠，以小括号(4, 6–9)形式来写的参考文献（Sci. Adv）
 
-patterns = [pattern1, pattern2, pattern3, pattern4, pattern5, pattern6, pattern7, pattern8, pattern9, pattern10, pattern11]  # 放到列表中
+patterns = [pattern1, pattern2, pattern3, pattern4, pattern5, pattern6, pattern7, pattern8, pattern9, pattern10, pattern11, pattern12]  # 放到列表中
 
 
 # loop over all files in folder "txt_not_cleaned"
